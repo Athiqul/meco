@@ -45,7 +45,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{$userData->image==null?asset('assets/images/profile/no_image.jpg'):asset($userData->image)}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                                <img src="{{$userData->image==null?asset('assets/images/profile/no_image.jpg'):asset('assets/images/profile/'.$userData->image)}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     <h4>{{$userData->name}}</h4>
                                     <p class="text-secondary mb-1">{{$userData->username}}</p>
@@ -145,7 +145,7 @@
                                             <h6 class="mb-0">Date Of Birth</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        <input class=" form-control" name="dob" type="text" id="date" value="{{$userData->dob}}" data-dtp="dtp_gcHx4">
+                                        <input class=" form-control" name="dob" type="text" id="date" placeholder="{{substr($userData->dob,0,10)}}" value="{{$userData->dob}}" data-dtp="dtp_gcHx4">
                                         @error('dob')
                                         <span class="text-danger text-center">{{$message}}</span>
                                     @enderror
@@ -181,7 +181,7 @@
                                    
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <img src="{{$userData->image==null?asset('assets/images/profile/no_image.jpg'):asset($userData->image)}}"  id="preview" class="form-control" style="height:100px;width:100px;" alt="">
+                                    <img src="{{$userData->image==null?asset('assets/images/profile/no_image.jpg'):asset('assets/images/profile/'.$userData->image)}}"  id="preview" class="form-control" style="height:100px;width:100px;" alt="">
                                 </div>
                             </div>
                             <div class="row">
@@ -202,6 +202,7 @@
 </div>
 @endsection
 @section('need-js')
+
 <script src="{{asset('assets/plugins/datetimepicker/js/legacy.js')}}"></script>
 <script src="{{asset('assets/plugins/datetimepicker/js/picker.js')}}"></script>
 <script src="{{asset('assets/plugins/datetimepicker/js/picker.time.js')}}"></script>

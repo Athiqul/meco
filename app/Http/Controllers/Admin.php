@@ -47,7 +47,7 @@ class Admin extends Controller
             [
                 "image"=>"image|mimes:png,jpg|max:1024",
                 "name"=>"required",
-                "contact_number"=>"required|numeric",
+                "contact_number"=>"required|numeric|regex:/^(?:\+?88|0)[1-9][0-9]{9}$/|",
                 "address"=> "required",
                 "dob"=>"required",
             ]);
@@ -80,10 +80,24 @@ class Admin extends Controller
         $userData->address=$request->address;
         $userData->dob=$request->dob;
         $userData->sex=$request->sex;
-      
+
+        
+        if(!$userData->isDirty()){
+            return redirect()->back()->with($this->sentToaster('info','Nothing Updated'));
+        }
+
         $userData->save();
          
-        return redirect()->back();
+        return redirect()->back()->with($this->sentToaster('success','Profile Successfully Updated!'));
         
     }
+
+    private function sentToaster($type,$msg):array
+    {
+        return [
+            "alert-type"=>$type,
+            "message"=>$msg,
+        ];   
+    }
+
 }
