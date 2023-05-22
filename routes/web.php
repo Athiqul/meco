@@ -20,7 +20,12 @@ use App\Http\Controllers\User;
 Route::middleware('auth')->group(function(){
     //Admin Routes
 Route::controller(Admin::class)->group(function(){
+    //render admin dashboard
     Route::get('/admin-dashboard','dashboard')->name('admin.dashboard')->middleware('role:admin');
+    //admin logout
+    Route::get('/admin-logout','destroy')->name('admin.logout')->middleware('role:admin');
+    //admin profile
+    Route::get('/admin-profile','adminProfile')->name('admin.profile')->middleware('role:admin');
 
 });
 //Vendor Routes
