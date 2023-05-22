@@ -26,6 +26,8 @@ Route::controller(Admin::class)->group(function(){
     Route::get('/admin-logout','destroy')->name('admin.logout')->middleware('role:admin');
     //admin profile
     Route::get('/admin-profile','adminProfile')->name('admin.profile')->middleware('role:admin');
+    //Admin Profile Update
+    Route::post('/admin-profile-update','adminUpdate')->name('admin.profile.update')->middleware('role:admin');
 
 });
 //Vendor Routes

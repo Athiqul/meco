@@ -1,4 +1,14 @@
 @extends('admin.admin_master');
+@section('need-css')
+
+<link href="{{asset('assets/plugins/datetimepicker/css/classic.css')}}" rel="stylesheet">
+<link href="{{asset('assets/plugins/datetimepicker/css/classic.time.css')}}" rel="stylesheet">
+<link href="{{asset('assets/plugins/datetimepicker/css/classic.date.css')}}" rel="stylesheet">
+<link href="{{asset('assets/plugins/datetimepicker/css/classic.css')}}" rel="stylesheet" />
+<link rel="stylesheet" href="{{asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css')}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	
+@endsection
 @section('main-content')
 <div class="page-wrapper">
 <div class="page-content"> 
@@ -35,13 +45,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="assets/images/avatars/avatar-2.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                                <img src="{{$userData->image==null?asset('assets/images/profile/no_image.jpg'):asset($userData->image)}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
-                                    <h4>John Doe</h4>
-                                    <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                    <button class="btn btn-primary">Follow</button>
-                                    <button class="btn btn-outline-primary">Message</button>
+                                    <h4>{{$userData->name}}</h4>
+                                    <p class="text-secondary mb-1">{{$userData->username}}</p>
+                                    <p class="text-muted font-size-sm">{{$userData->address}}</p>
+                                    
                                 </div>
                             </div>
                             <hr class="my-4">
@@ -73,12 +82,28 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
+                            <form action="{{route('admin.profile.update')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Username</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control"  name="username" value="{{$userData->username}}" readonly>
+                                    @error('username')
+                                        
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" value="John Doe">
+                                    <input type="text" name="name" class="form-control" value="{{$userData->name}}">
+                                    @error('name')
+                                        <span class="text-danger text-center">{{$message}}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -86,7 +111,8 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" value="john@example.com">
+                                    <input type="text" name="email" class="form-control" value="{{$userData->email}}" readonly>
+                                   
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -94,31 +120,77 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" value="(239) 816-9029">
+                                    <input type="text" name="contact_number" class="form-control" value="{{$userData->contact_number}}">
+                                    @error('contact_number')
+                                    <span class="text-danger text-center">{{$message}}</span>
+                                @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Mobile</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" value="(320) 380-4539">
-                                </div>
-                            </div>
+                           
                             <div class="row mb-3">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" value="Bay Area, San Francisco, CA">
+                                    <input type="text" name="address" class="form-control" value="{{$userData->address}}">
+                                    @error('address')
+                                    <span class="text-danger text-center">{{$message}}</span>
+                                @enderror
+                                </div>
+                            </div>
+                            
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Date Of Birth</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                        <input class=" form-control" name="dob" type="text" id="date" value="{{$userData->dob}}" data-dtp="dtp_gcHx4">
+                                        @error('dob')
+                                        <span class="text-danger text-center">{{$message}}</span>
+                                    @enderror
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Gender</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                        <select class="form-select" name="sex" id="inputGroupSelect01">
+                                            <option >Choose...</option>
+                                            <option value="0" {{$userData->sex=='0'?'selected':''}}>Male</option>
+                                            <option value="1" {{$userData->sex=='1'?'selected':''}}>Female</option>
+                                           
+                                        </select>
+                                    </div>
+                                    </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Image</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="file" name="image" onchange="previewImage(event)" class="form-control" >
+                                    @error('image')
+                                    <span class="text-danger text-center">{{$message}}</span>
+                                @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                   
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <img src="{{$userData->image==null?asset('assets/images/profile/no_image.jpg'):asset($userData->image)}}"  id="preview" class="form-control" style="height:100px;width:100px;" alt="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                                    <input type="submit" class="btn btn-primary px-4" value="Save Changes">
                                 </div>
                             </div>
+                        </form>
                         </div>
                     </div>
                   
@@ -128,4 +200,47 @@
     </div>
 </div>
 </div>
+@endsection
+@section('need-js')
+<script src="{{asset('assets/plugins/datetimepicker/js/legacy.js')}}"></script>
+<script src="{{asset('assets/plugins/datetimepicker/js/picker.js')}}"></script>
+<script src="{{asset('assets/plugins/datetimepicker/js/picker.time.js')}}"></script>
+<script src="{{asset('assets/plugins/datetimepicker/js/picker.date.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-material-datetimepicker/js/moment.min.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js')}}"></script>
+<script>
+    $('.datepicker').pickadate({
+        selectMonths: true,
+        selectYears: true
+    }),
+    $('.timepicker').pickatime()
+</script>
+<script>
+    $(function () {
+        $('#date-time').bootstrapMaterialDatePicker({
+            format: 'YYYY-MM-DD HH:mm'
+        });
+        $('#date').bootstrapMaterialDatePicker({
+            time: false
+        });
+        $('#time').bootstrapMaterialDatePicker({
+            date: false,
+            format: 'HH:mm'
+        });
+    });
+
+ //Preview Image
+ function previewImage(event) {
+      var input = event.target;
+      console.log(input);
+      var reader = new FileReader();
+      reader.onload = function(){
+        var dataURL = reader.result;
+        var preview = document.getElementById('preview');
+        preview.src = dataURL;
+      };
+      reader.readAsDataURL(input.files[0]);
+    
+    }
+</script>
 @endsection
