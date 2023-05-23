@@ -28,6 +28,9 @@ Route::controller(Admin::class)->group(function(){
     Route::get('/admin-profile','adminProfile')->name('admin.profile')->middleware('role:admin');
     //Admin Profile Update
     Route::post('/admin-profile-update','adminUpdate')->name('admin.profile.update')->middleware('role:admin');
+    //Admin Password Change
+    Route::get('/admin-password-change','changePassword')->name('admin.password.change')->middleware('role:admin');
+    Route::post('/admin-password-change','storePassword')->name('admin.password.change')->middleware('role:admin');
 
 });
 //Vendor Routes

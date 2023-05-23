@@ -100,7 +100,9 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="name" class="form-control" value="{{$userData->name}}">
+                                    <input type="text" name="name" class="form-control @error('name')
+                                        {{'is-invalid'}}
+                                    @enderror" value="{{old('name',$userData->name)}}">
                                     @error('name')
                                         <span class="text-danger text-center">{{$message}}</span>
                                     @enderror
@@ -111,7 +113,9 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="email" class="form-control" value="{{$userData->email}}" readonly>
+                                    <input type="text" name="email" class="form-control @error('email')
+                                    {{'is-invalid'}}
+                                @enderror" value="{{old('email',$userData->email)}}" readonly>
                                    
                                 </div>
                             </div>
@@ -120,7 +124,9 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="contact_number" class="form-control" value="{{$userData->contact_number}}">
+                                    <input type="text" name="contact_number" class="form-control @error('contact_number')
+                                    {{'is-invalid'}}
+                                @enderror" value="{{old('contact_number',$userData->contact_number)}}">
                                     @error('contact_number')
                                     <span class="text-danger text-center">{{$message}}</span>
                                 @enderror
@@ -132,7 +138,9 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="address" class="form-control" value="{{$userData->address}}">
+                                    <input type="text" name="address" class="form-control @error('address')
+                                    {{'is-invalid'}}
+                                @enderror" value="{{old('address',$userData->address)}}">
                                     @error('address')
                                     <span class="text-danger text-center">{{$message}}</span>
                                 @enderror
@@ -145,7 +153,9 @@
                                             <h6 class="mb-0">Date Of Birth</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                        <input class=" form-control" name="dob" type="text" id="date" placeholder="{{substr($userData->dob,0,10)}}" value="{{$userData->dob}}" data-dtp="dtp_gcHx4">
+                                        <input class=" form-control @error('dob')
+                                        {{'is-invalid'}}
+                                    @enderror" name="dob" type="text" id="date" placeholder="{{substr($userData->dob,0,10)}}" value="{{old('dob')}}" data-dtp="dtp_gcHx4">
                                         @error('dob')
                                         <span class="text-danger text-center">{{$message}}</span>
                                     @enderror
@@ -170,7 +180,9 @@
                                     <h6 class="mb-0">Image</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="file" name="image" onchange="previewImage(event)" class="form-control" >
+                                    <input type="file" name="image" onchange="previewImage(event)" class="form-control @error('image')
+                                    {{'is-invalid'}}
+                                @enderror" >
                                     @error('image')
                                     <span class="text-danger text-center">{{$message}}</span>
                                 @enderror
