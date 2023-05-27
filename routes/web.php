@@ -36,12 +36,21 @@ Route::controller(Admin::class)->group(function(){
 //Vendor Routes
 Route::controller(Vendor::class)->group(function(){
     Route::get('/vendor-dashboard','dashboard')->name('vendor.dashboard')->middleware('role:vendor');
+    //Vendor Profile
+    Route::get('/vendor-profile','vendorProfile')->name('vendor.profile')->middleware('role:vendor');
+    Route::post('/vendor-update','updateProfile')->name('vendor.update.profile')->middleware('role:vendor');
+    //vendor Password
+    Route::get('/change-password','passwordChange')->name('vendor.password.change')->middleware('role:vendor');
+    Route::post('/change-password','passwordStore')->name('vendor.password.change')->middleware('role:vendor');
+    //logout
+    Route::get('/vendor-log-out','vendorLogout')->name('vendor.logout')->middleware('role:vendor');
 
 });
 
 //User dashboard Routes
 Route::controller(User::class)->group(function(){
     Route::get('/user-dashboard','dashboard')->name('user.dashboard')->middleware('role:user');
+   
 
 });
 

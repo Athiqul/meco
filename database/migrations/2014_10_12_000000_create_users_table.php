@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('sex',['0','1'])->default('0');
             $table->enum('roles',['admin','user','vendor'])->default('user');
             $table->enum('status',['0','1'])->default('1');
-            $table->timestamp('dob')->nullable();
+            $table->date('dob')->nullable();
             $table->string('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
