@@ -45,7 +45,7 @@ class AuthenticatedSessionController extends Controller
                 $url='/login';
         }
          //dd($url);
-        return redirect()->intended($url);
+        return redirect()->intended($url)->with(['alert-type'=>'success','message'=> Auth::user()->name.' Sir Welcome you are logged in!']);
     }
 
     /**
