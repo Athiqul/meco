@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Vendor;
 use App\Http\Controllers\User;
+use App\Http\Controllers\Home;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,10 @@ use App\Http\Controllers\User;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//For vendor and admin login
+Route::get('/enterprise-login',function(){
+return view('auth.enterprise_login');
+});
 //All Users
 Route::middleware('auth')->group(function(){
     //Admin Routes
@@ -56,10 +60,8 @@ Route::controller(User::class)->group(function(){
 
 });
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//Customer View
+Route::get('/',[Home::class,'index'] );
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -1,125 +1,68 @@
+@extends('frontend.frontend_master')
+@section('main')
 
-<!doctype html>
-<html lang="en">
+<main class="main pages">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="{{url('/')}}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <span></span> Pages <span></span> My Account
+            </div>
+        </div>
+    </div>
+    <div class="page-content pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                    <div class="row">
+                        <div class="col-lg-6 pr-30 d-none d-lg-block">
+                            <img class="border-radius-15" src="{{asset('frontend/assets/imgs/page/login-1.png')}}" alt="">
+                        </div>
+                        <div class="col-lg-6 col-md-8">
+                            <div class="login_wrap widget-taber-content background-white">
+                                <div class="padding_eight_all bg-white">
+                                    <div class="heading_s1">
+                                        <h1 class="mb-5">Login</h1>
+                                        <p class="mb-30">Don't have an account? <a href="{{route('register')}}">Create here</a></p>
+                                    </div>
+                                    <form method="post" action="{{route('login')}}">
+                                        @csrf
+                                        <div class="form-group">
+                                            <input type="email" required="" name="email"  placeholder="Email">
+                                            @error('email')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <input required="" type="password" name="password" placeholder="Your password *">
 
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--favicon-->
-	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
-	<!--plugins-->
-	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
-	<!-- loader-->
-	<link href="assets/css/pace.min.css" rel="stylesheet" />
-	<script src="assets/js/pace.min.js"></script>
-	<!-- Bootstrap CSS -->
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="assets/css/app.css" rel="stylesheet">
-	<link href="assets/css/icons.css" rel="stylesheet">
-	<title>Rukada - Responsive Bootstrap 5 Admin Template</title>
-</head>
+                                            @error('password')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
 
-<body class="bg-login">
-	<!--wrapper-->
-	<div class="wrapper">
-		<div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
-			<div class="container-fluid">
-				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-					<div class="col mx-auto">
-						<div class="mb-4 text-center">
-							<img src="assets/images/logo-img.png" width="180" alt="" />
-						</div>
-						<div class="card">
-							<div class="card-body">
-								<div class="border p-4 rounded">
-									<div class="text-center">
-										<h3 class="">Sign in</h3>
-										<p>Don't have an account yet? <a href="authentication-signup.html">Sign up here</a>
-										</p>
-									</div>
-									
-									
-									<div class="form-body">
-										<form method="POST" action="{{route('login')}}" class="row g-3">
-                                            @csrf
-											<div class="col-12">
-												<label for="inputEmailAddress" class="form-label">Email Address</label>
-												<input type="email"value="{{old('email')}}" class="form-control @error('email')
-                                                    {{'is-invalid'}}
-                                                @enderror" id="inputEmailAddress" name="email" placeholder="Email Address">
-                                                @error('email')
-                                                <span class="text-danger">{{$message}}</span>
-                                            @enderror
-											</div>
-											<div class="col-12">
-												<label for="inputChoosePassword" class="form-label">Enter Password</label>
-												<div class="input-group" id="show_hide_password">
-													<input type="password" name="password" class="form-control border-end-0 @error('email')
-                                                    {{'is-invalid'}}
-                                                @enderror" id="inputChoosePassword">
-                                               
-                                                <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
-                                                 
-                                                
-												</div>
-                                                @error('password')
-                                                <span class="text-danger">{{$message}}</span>
-                                            @enderror
-											</div>
-											<div class="col-md-6">
-												<div class="form-check form-switch">
-													<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="remember" checked>
-													<label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
-												</div>
-											</div>
-											<div class="col-md-6 text-end">	<a href="authentication-forgot-password.html">Forgot Password ?</a>
-											</div>
-											<div class="col-12">
-												<div class="d-grid">
-													<button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Sign in</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--end row-->
-			</div>
-		</div>
-	</div>
-	<!--end wrapper-->
-	<!-- Bootstrap JS -->
-	<script src="assets/js/bootstrap.bundle.min.js"></script>
-	<!--plugins-->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
-	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
-	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-	<!--Password show & hide js -->
-	<script>
-		$(document).ready(function () {
-			$("#show_hide_password a").on('click', function (event) {
-				event.preventDefault();
-				if ($('#show_hide_password input').attr("type") == "text") {
-					$('#show_hide_password input').attr('type', 'password');
-					$('#show_hide_password i').addClass("bx-hide");
-					$('#show_hide_password i').removeClass("bx-show");
-				} else if ($('#show_hide_password input').attr("type") == "password") {
-					$('#show_hide_password input').attr('type', 'text');
-					$('#show_hide_password i').removeClass("bx-hide");
-					$('#show_hide_password i').addClass("bx-show");
-				}
-			});
-		});
-	</script>
-	<!--app JS-->
-	<script src="assets/js/app.js"></script>
-</body>
-
-</html>
+                                        </div>
+                                        
+                                        <div class="login_footer form-group mb-50">
+                                            <div class="chek-form">
+                                                <div class="custome-checkbox">
+                                                    <input class="form-check-input" type="checkbox" name="remember" id="exampleCheckbox1" value="">
+                                                    <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                                                </div>
+                                            </div>
+                                            <a class="text-muted" href="{{route('password.email')}}">Forgot password?</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Log in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+    
+@endsection
