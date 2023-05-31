@@ -364,6 +364,8 @@
  }
  @endif 
 </script>
+
+@yield('custom-js')
     
 </body>
 

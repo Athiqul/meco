@@ -56,6 +56,7 @@ Route::controller(User::class)->group(function(){
     Route::get('/user-dashboard','dashboard')->name('user.dashboard')->middleware('role:user');
     //user logout
     Route::get('/user-logout','userLogout')->name('user.logout')->middleware('role:user');
+    Route::post('/user-info-update','infoStore')->name('user.update')->middleware('role:user');
 
    
 

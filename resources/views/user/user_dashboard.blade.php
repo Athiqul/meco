@@ -18,7 +18,7 @@
                             <div class="dashboard-menu">
                                 <ul class="nav flex-column" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                        <a class="nav-link {{session()->has('link')?'active':''}}" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
@@ -30,7 +30,7 @@
                                         <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                        <a class="nav-link {{session()->has('link')?'active':''}}" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{route('user.logout')}}"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
@@ -165,17 +165,23 @@
                                         </div>
                                         <div class="card-body">
                                             
-                                            <form method="post" name="enq">
+                                            <form method="post" action="{{route('user.update')}}" name="enq" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="form-group col-md-12">
                                                         <label>Name <span class="required">*</span></label>
                                                         <input required="" class="form-control" name="name" value="{{old('name',$userInfo->name)}}" type="text">
+                                                        @error('name')
+                                                            <span class="text-danger">{{$message}}</span>
+                                                        @enderror
                                                     </div>
                                                     
                                                     <div class="form-group col-md-12">
                                                         <label>Username <span class="required">*</span></label>
                                                         <input required="" class="form-control" name="username"value="{{old('username',$userInfo->username)}}" type="text">
+                                                        @error('username')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                    @enderror
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Email Address <span class="required">*</span></label>
@@ -184,10 +190,16 @@
                                                     <div class="form-group col-md-12">
                                                         <label>Contact Number <span class="required">*</span></label>
                                                         <input required="" class="form-control" name="contact_number" value="{{old('contact_number',$userInfo->contact_number)}}" type="tel">
+                                                        @error('contact_number')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                    @enderror
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Date Of Birth <span class="required">*</span></label>
                                                         <input required="" class="form-control" name="dob" type="date" value="{{old('dob',$userInfo->dob)}}">
+                                                        @error('dob')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                    @enderror
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Gender: <span class="required">*</span></label>
@@ -195,16 +207,28 @@
                                                             <option value="0" {{$userInfo->sex=='0'?'selected':''}} >Male</option>
                                                             <option value="1" {{$userInfo->sex=='1'?'selected':''}} >Female</option>
                                                         </select>
-                                                       
+                                                        @error('sex')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label>Address <span class="required">*</span></label>
+                                                        <input required="" class="form-control" name="address" value="{{old('address',$userInfo->address)}}" type="text">
+                                                        @error('address')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                    @enderror
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Profile Image: <span class="required">*</span></label>
-                                                        <input type="file" id="uploadImage" class="form-control" name="image">
+                                                        <input type="file" id="uploadImage" class="form-control" name="image" onchange="previewImage(event)">
+                                                        @error('image')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                    @enderror
                                                        
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label><span class="required">*</span></label>
-                                                        <img src="{{$userInfo->image==null? asset('assets/images/profile/no_image.jpg'): asset('assets/images/profile/'.$userInfo->image)}}" class="rounded-circle p-1 bg-primary" id="previewImage" alt="">
+                                                        <img src="{{$userInfo->image==null? asset('assets/images/profile/no_image.jpg'): asset('assets/images/profile/'.$userInfo->image)}}" class="rounded-circle p-1 bg-primary" style="width: 200px;height:200px;" id="preview" alt="">
                                                        
                                                     </div>
                                                     <div class="col-md-12">
@@ -223,4 +247,21 @@
         </div>
     </div>
 </main>    
+<script>
+    function previewImage(event) {
+  var input = event.target;
+  var reader = new FileReader();
+  reader.onload = function(){
+    var dataURL = reader.result;
+    var preview = document.getElementById('preview');
+    preview.src = dataURL;
+  };
+  reader.readAsDataURL(input.files[0]);
+
+}
+</script>
+@endsection
+
+@section('custom-js')
+   
 @endsection
