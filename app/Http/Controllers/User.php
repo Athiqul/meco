@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User as UserModel;
 use Intervention\Image\Facades\Image as ProfileImage;
+use Illuminate\Support\Facades\Validator;
 use Exception;
 
 class User extends Controller
@@ -23,8 +24,9 @@ class User extends Controller
         //get user info
         $userId=Auth::user()->id;
         $userInfo=UserModel::findorfail($userId);
+
         //user Validation
-           $request->validate([
+        $validator=Validator::make($request->all(),[
             "name"=>"required|min:4",
             "username"=>"required|min:3",
             "image"=>"mimes:jpeg,png,jpg,gif,webp|max:2048",
@@ -34,8 +36,23 @@ class User extends Controller
                 "required",
                 'regex:/^(?:\+?88|0)[1-9][0-9]{9}$/',
             ],
+        ]);
+        if($validator->fails())
+        {
+            return redirect()->back()->withInput()->withErrors($validator)->with('link','account');
+        }
+        //    $request->validate([
+        //     "name"=>"required|min:4",
+        //     "username"=>"required|min:3",
+        //     "image"=>"mimes:jpeg,png,jpg,gif,webp|max:2048",
+        //     "dob"=>"required",
+        //     "address"=>"required",
+        //     "contact_number"=>[
+        //         "required",
+        //         'regex:/^(?:\+?88|0)[1-9][0-9]{9}$/',
+        //     ],
             
-           ]);
+        //    ]);
            
            //Check Mobile number new or old
            //dd($userInfo->contact_number,$request->contact_number);
@@ -92,6 +109,45 @@ class User extends Controller
           }catch(Exception $e){
             return redirect()->back()->with($this->sentToaster('error',$e->getMessage()))->with('link','account');
           }
+    }
+
+    //Password Change
+    public function changePassword(Request $request)
+    {
+         //get user info
+         $userId=Auth::user()->id;
+         $userInfo=UserModel::findorfail($userId);
+ 
+         //user Validation
+         $validator=Validator::make($request->all(),[
+             "curr_password"=>"required",
+             "new_password"=>"required|min:6",
+             "confirm_password"=>"required|same:new_password",
+         ]);
+         if($validator->fails())
+         {
+             return redirect()->back()->withInput()->withErrors($validator)->with('password','account');
+         }
+
+         //verify password
+         if(!Hash::check($request->curr_password,$userInfo->password))
+         {
+             return redirect()->back()->with('password','account')->with($this->sentToaster('error','Current password does not matching with existing password!'));
+         }
+
+       
+          if(Hash::check($request->new_password,$userInfo->password)){
+            return redirect()->back()->with('password','account')->with($this->sentToaster('info','Nothing Updated this is already existing password!'));
+          } 
+         try{
+              //store password
+         $userInfo->password=$request->new_password;
+            $userInfo->save();
+            return redirect()->back()->with($this->sentToaster('success','Password Updated Please log in with this password again'));
+         }catch(Exception $e){
+            return redirect()->back()->with($this->sentToaster('error',$e->getMessage()));
+         }
+         
     }
     //User Logout
     public function userLogout(Request $request)

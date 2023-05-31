@@ -57,6 +57,7 @@ Route::controller(User::class)->group(function(){
     //user logout
     Route::get('/user-logout','userLogout')->name('user.logout')->middleware('role:user');
     Route::post('/user-info-update','infoStore')->name('user.update')->middleware('role:user');
+    Route::post('/change-password','changePassword')->name('user.password.change')->middleware('role:user');
 
    
 
