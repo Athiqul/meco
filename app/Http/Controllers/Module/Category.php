@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\category as CatModel;
 use Intervention\Image\Facades\Image as CatImage;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class Category extends Controller
@@ -27,12 +28,13 @@ class Category extends Controller
        //Store category
        public function store(Request $request)
        {
+        //dd($request);
           $request->validate([
            "category_name"=>"required|min:3",
            "image"=>"nullable|image|mimes:png,jpg,gif,jpeg|max:2048",
    
           ]);    
-   
+        //dd($request->category_name,$request->image);
           //For image
           $image=null;
           if($request->hasFile('image'))
@@ -52,9 +54,11 @@ class Category extends Controller
                "image"=>$image,
                "category_slug"=>strtolower(str_replace(' ','-',$request->category_name)),
              ]);
+            
              return redirect()->route('admin.category.list')->with($this->toaster('success',$image==null?'Sucessfully category Created without Image':'Successfully category Created with Image'));
           }catch(Exception $ex){
-             return redirect()->back()->with('error',$ex->getMessage())->withInput();
+            // dd( DB::getQueryLog());
+             return redirect()->back()->with($this->toaster('error',$ex->getMessage()))->withInput();
           }
        }
    

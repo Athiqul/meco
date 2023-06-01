@@ -8,6 +8,7 @@ use App\Http\Controllers\User;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\Module\Brand;
 use App\Http\Controllers\Module\Category;
+use App\Http\Controllers\Module\SubCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,6 +89,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
         route::post('/category-update/{id}','update')->name('admin.category.update');
         route::get('/category-delete/{id}','deleteCategory')->name('admin.category.delete');
    });
+   //Sub Category Admin Route
+   Route::controller(SubCategoryController::class)->group(function(){
+    route::get('/sub-category-list','index')->name('admin.subcategory.list');   
+    route::get('/sub-create-category','create')->name('admin.subcategory.create');   
+    route::post('/sub-category-store','store')->name('admin.subcategory.store');   
+    route::get('/category-edit/{id}','edit')->name('admin.category.edit');   
+    route::post('/category-update/{id}','update')->name('admin.category.update');
+    route::get('/subcategory-delete/{id}','deleteSubCategory')->name('admin.subcategory.delete');
+});
 });
 
 //Customer View
