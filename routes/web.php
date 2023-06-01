@@ -7,6 +7,7 @@ use App\Http\Controllers\Vendor;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\Module\Brand;
+use App\Http\Controllers\Module\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +79,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
           route::post('/brand-update/{id}','update')->name('admin.brand.update');
           route::get('/brand-delete/{id}','deleteBrand')->name('admin.brand.delete');
      });
+      //Category Admin Route
+      Route::controller(Category::class)->group(function(){
+        route::get('/category-list','index')->name('admin.category.list');   
+        route::get('/create-category','create')->name('admin.category.create');   
+        route::post('/category-store','store')->name('admin.category.store');   
+        route::get('/category-edit/{id}','edit')->name('admin.category.edit');   
+        route::post('/category-update/{id}','update')->name('admin.category.update');
+        route::get('/category-delete/{id}','deleteCategory')->name('admin.category.delete');
+   });
 });
 
 //Customer View
