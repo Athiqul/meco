@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Vendor;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Home;
+use App\Http\Controllers\Module\Brand;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,12 +66,22 @@ Route::controller(User::class)->group(function(){
 
 });
 
+//Admin view
+Route::middleware(['auth','role:admin'])->group(function(){
+
+     //All Brand Admin Route
+     Route::controller(Brand::class)->group(function(){
+          route::get('/brand-list','index')->name('admin.brand.list');   
+          route::get('/create-brand','create')->name('admin.brand.create');   
+          route::post('/brand-store','store')->name('admin.brand.store');   
+          route::get('/brand-edit/{id}','edit')->name('admin.brand.update');   
+          route::post('/brand-update/{id}','update')->name('admin.brand.update');
+     });
+});
+
 //Customer View
 Route::get('/',[Home::class,'index'] );
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {

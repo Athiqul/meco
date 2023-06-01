@@ -29,7 +29,7 @@ class Admin extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/enterprise-login');
     }
 
     //View Admin Profile
