@@ -33,7 +33,7 @@
                                         <h6 class="mb-0">Category Name:</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary  form-group">
-                                        <input type="text" class="form-control"  name="category_name" value="{{old('category_name',$category->category_name)}}">
+                                        <input type="text" class="form-control"  name="category_name" value="{{$category->category_name}}" >
 
                                         @error('category_name')
                                             <span class="text-danger">{{$message}}</span>

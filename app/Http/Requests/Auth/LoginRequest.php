@@ -39,6 +39,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        //dd("heelo");
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
@@ -46,6 +47,7 @@ class LoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'email' => "Invalid Email or Password",
+                "password"=>"Invalid Email or Password",
             ]);
         }
 
