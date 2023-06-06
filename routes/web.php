@@ -9,6 +9,7 @@ use App\Http\Controllers\Home;
 use App\Http\Controllers\Module\Brand;
 use App\Http\Controllers\Module\Category;
 use App\Http\Controllers\Module\SubCategoryController;
+use App\Http\Controllers\Module\VendorApprove;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,12 +99,23 @@ Route::middleware(['auth','role:admin'])->group(function(){
     route::post('/sub-category-update/{id}','update')->name('admin.subcategory.update');
     route::get('/subcategory-delete/{id}','deleteSubCategory')->name('admin.subcategory.delete');
 });
+   //Vendor Management
+   Route::controller(VendorApprove::class)->group(function(){
+    route::get('/active-vendors','activeVendors')->name('admin.active.vendors');   
+    route::get('/inactive-vendors','inactiveVendors')->name('admin.inactive.vendors');   
+    route::get('/vendor-profile/{id}','vendorProfile')->name('admin.vendor.profile');   
+    route::get('/vendor-approval/{id}','vendorApproval')->name('admin.vendor.status');   
+    route::post('/sub-category-update/{id}','update')->name('admin.subcategory.update');
+    route::get('/subcategory-delete/{id}','deleteSubCategory')->name('admin.subcategory.delete');
+});
+
 });
 
 //Customer View
 Route::get('/',[Home::class,'index'] )->name('customer.home');
-
-
+//Vendor Registration
+Route::get('/become-vendor',[VendorApprove::class,'vendorRegister'])->name('vendor.signup');
+Route::post('/vendor-signup',[Vendor::class,'registerVendor'])->name('vendor.register');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

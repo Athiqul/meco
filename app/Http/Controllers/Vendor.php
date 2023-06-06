@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as ProfileImage;
 use Exception;
 use App\Models\vendorInfo;
+use Illuminate\Auth\Events\Registered;
 
 class Vendor extends Controller
 {
@@ -19,7 +20,34 @@ class Vendor extends Controller
         return view('vendors.vendor_dashboard');
     }
 
+   //Vendor Register
+   public function registerVendor(Request $request)
+   {
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+        'contact_number' => ['required','regex:/^(?:\+?88|0)[1-9][0-9]{9}$/',  'string', 'max:11', 'unique:users,contact_number'],
+        'password' => ['required','min:8', ],
+        "password_confirmation"=>['required','same:password'],
+        "dob"=>['required'],
+        "address"=>['required'],
+    ]);
 
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'contact_number'=>$request->contact_number,
+        'address'=>$request->address,
+        'dob'=>$request->dob,
+    ]);
+
+    event(new Registered($user));
+
+    Auth::login($user);
+
+    return redirect('/login-enterprise');
+   }
     //Vendor Profile
     public function vendorProfile()
     {

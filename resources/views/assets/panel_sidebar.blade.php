@@ -64,8 +64,21 @@
                
             </ul>
         </li>
-       
-        
+        <li class="menu-label">Vendor Management</li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Vendors</div>
+            </a>
+            <ul>
+                <li> <a href="{{route('admin.active.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Active Vendors</a>
+                </li>
+                <li> <a href="{{route('admin.inactive.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Inactive Vendors</a>
+                </li>
+               
+            </ul>
+        </li>
     </ul>
     <!--end navigation-->
 </div>
