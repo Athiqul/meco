@@ -5,15 +5,15 @@
     <div class="page-content"> 
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Edit Category</div>
+            <div class="breadcrumb-title pe-3">Edit Sub Category</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.category.list')}}"><i class="bx bx-briefcase-alt" title="category list"></i></a>
+                        <li class="breadcrumb-item"><a href="{{route('admin.subcategory.list')}}"><i class="bx bx-briefcase-alt" title="category list"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit category</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Sub category</li>
                     </ol>
                 </nav>
             </div>
@@ -26,44 +26,41 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{route('admin.category.update',$category->id)}}" id="category" method="post" enctype="multipart/form-data">
+                                <form action="{{route('admin.subcategory.update',$subcat->id)}}" id="category" method="post" enctype="multipart/form-data">
                                     @csrf
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Category Name:</h6>
+                                        <h6 class="mb-0">Sub Category Name:</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary  form-group">
-                                        <input type="text" class="form-control"  name="category_name" value="{{old('category_name',$category->category_name)}}">
+                                        <input type="text" class="form-control"  name="sub_name" value="{{old('sub_name',$subcat->sub_name)}}">
 
-                                        @error('category_name')
+                                        @error('sub_name')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
                                 </div>
                                
-                              
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Selected Category:</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary  form-group">
+                                        <select class="form-control mb-3" name="cat_id" aria-label="Default select example" required="" >
+                                          
+                                             @foreach ($categories as  $item)
+                                                 <option value="{{$item->id}}" {{$subcat->cat_id==$item->id?'selected':''}}>{{$item->category_name}}</option>
+                                             @endforeach
+                                        </select>
+                                        @error('cat_id')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                
                                        
                                     
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Image</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="file" name="image" onchange="previewImage(event)" class="form-control" >
-                                        @error('image')
-                                        <span class="text-danger text-center">{{$message}}</span>
-                                    @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                       
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <img src="{{$category->image?asset('assets/images/category/'.$category->image):asset('assets/images/profile/no_image.jpg')}}"  id="preview" class="form-control" style="height:100px;width:100px;" alt="">
-                                    </div>
-                                </div>
+                              
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">
@@ -90,15 +87,15 @@
         $(document).ready(function (){
         $('#category').validate({
             rules: {
-                category_name: {
+                sub_name: {
                     required : true,
                     minlength:3,
                 }, 
             },
         
             messages :{
-                category_name: {
-                    required : 'Please Write category Name',
+                sub_name: {
+                    required : 'Please Write Sub Category Name',
                     minlength:'Too short name!'
                 },
                
@@ -116,17 +113,6 @@
             },
         });
     });
-         //Preview Image
- function previewImage(event) {
-      var input = event.target;
-      var reader = new FileReader();
-      reader.onload = function(){
-        var dataURL = reader.result;
-        var preview = document.getElementById('preview');
-        preview.src = dataURL;
-      };
-      reader.readAsDataURL(input.files[0]);
-    
-    }
+
     </script>
 @endsection

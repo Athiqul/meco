@@ -66,7 +66,7 @@ class Category extends Controller
        public function edit($id)
        {
             $category=CatModel::findorfail($id);
-            dd($category);
+            //dd($category);
             return view('admin.category.edit',compact('category'));  
        }
    

@@ -65,7 +65,7 @@
                                     <td>{{($item['category']['category_name'])}}</td>
                                     <td>{{$item->sub_name}} </td>
                                     <td>
-                                        <a href="{{route('admin.category.edit',$item->id)}}" class="btn btn-info" title="Edit">
+                                        <a href="{{route('admin.subcategory.edit',$item->id)}}" class="btn btn-info" title="Edit">
                                             <i class="fadeIn animated bx bx-pencil"></i>
                                         </a>
                                         <a href="{{route('admin.subcategory.delete',$item->id)}}" class="btn btn-danger" id="catDelete" title="Delete">

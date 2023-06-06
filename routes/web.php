@@ -94,14 +94,14 @@ Route::middleware(['auth','role:admin'])->group(function(){
     route::get('/sub-category-list','index')->name('admin.subcategory.list');   
     route::get('/sub-create-category','create')->name('admin.subcategory.create');   
     route::post('/sub-category-store','store')->name('admin.subcategory.store');   
-    route::get('/category-edit/{id}','edit')->name('admin.category.edit');   
-    route::post('/category-update/{id}','update')->name('admin.category.update');
+    route::get('/sub-category-edit/{id}','edit')->name('admin.subcategory.edit');   
+    route::post('/sub-category-update/{id}','update')->name('admin.subcategory.update');
     route::get('/subcategory-delete/{id}','deleteSubCategory')->name('admin.subcategory.delete');
 });
 });
 
 //Customer View
-Route::get('/',[Home::class,'index'] );
+Route::get('/',[Home::class,'index'] )->name('customer.home');
 
 
 

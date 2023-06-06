@@ -55,44 +55,35 @@ class SubCategoryController extends Controller
      //Edit category
      public function edit($id)
      {
-          $category=SubCategory::findorfail($id);
-          return view('admin.category.edit',compact('category'));  
+          $subcat=SubCategory::findorfail($id);
+          $categories=category::latest()->get();
+          return view('admin.subcat.edit',compact('subcat','categories'));  
      }
  
      //Update category
      public function update(Request $request,$id)
      {
               //category
-              $categoryInfo=SubCategory::findorfail($id);
+              $subInfo=SubCategory::findorfail($id);
               //validation
               $request->validate([
-                 "category_name"=>"required|min:3",
-                 "image"=>"nullable|image|mimes:png,jpg,gif,jpeg|max:2048",
+                 "sub_name"=>"required|min:3",
+                 "cat_id"=>"required|exists:categories,id",
          
                 ]);    
-             //Image Handle
-             $image=null;
-             if($request->hasFile('image'))
-             {
-                $file=$request->file('image');
-                $image=md5(uniqid()).'.'.$file->getClientOriginalExtension();
-                $path=public_path('assets/images/category/');
-                !is_dir($path)&&mkdir($path,0777,true);
-              
-                $categoryInfo->image&&file_exists($path.$categoryInfo->image)&&unlink($path.$categoryInfo->image);
-             }
-             //Save 
-             $categoryInfo->category_name=$request->category_name;
-             $categoryInfo->image=$image??$categoryInfo->image;
+             
+            
+             $subInfo->sub_name=$request->sub_name;
+             $subInfo->cat_id=$request->cat_id;
              //check nothing
-             if(!$categoryInfo->isDirty())
+             if(!$subInfo->isDirty())
              {
                  return redirect()->back()->with($this->toaster('info','Nothing updated! Same data already exist in this record'));
              }
  
              try{
-                 $categoryInfo->save();
-                 return redirect()->route('admin.category.list')->with($this->toaster('success',$image?'category Information updated with Image':'category Information updated without Image'));
+                 $subInfo->save();
+                 return redirect()->route('admin.subcategory.list')->with($this->toaster('success','Sub Category Information updated'));
              }catch(Exception $e){
                  return redirect()->back()->with($this->toaster('error',$e->getMessage()));
              }
