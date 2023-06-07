@@ -30,25 +30,25 @@
                                         @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" required="" name="email" placeholder="Email">
+                                            <input type="email" required="" name="email" placeholder="Email" value="{{old('email')}}">
                                             @error('email')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="tel" required="" name="contact_number" pattern="01[356789][0-9]{8}" placeholder="Mobile Number">
+                                            <input type="tel" required="" name="contact_number" pattern="01[356789][0-9]{8}" placeholder="Mobile Number" value="{{old('contact_number')}}">
                                             @error('contact_number')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="date" name="dob" placeholder="Since business started! ">
+                                            <input required="" type="date" name="dob" placeholder="Since business started! " value="{{old('dob')}}">
                                             @error('dob')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="text" name="address" placeholder="Address ">
+                                            <input required="" type="text" name="address" placeholder="Address " value="{{old('address')}}">
                                             @error('address')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror

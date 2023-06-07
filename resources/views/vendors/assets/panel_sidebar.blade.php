@@ -1,4 +1,7 @@
 <!--sidebar wrapper -->
+@php
+    $vendor= App\Models\User::find(Auth::user()->id);
+@endphp
         
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
@@ -21,6 +24,9 @@
             </a>
             
         </li>
+        @if ($vendor->status=='1')
+            
+       
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -183,7 +189,7 @@
                 </li>
             </ul>
         </li>
-        
+        @endif
     </ul>
     <!--end navigation-->
 </div>

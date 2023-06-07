@@ -1,9 +1,17 @@
+@php
+    $vendor= App\Models\User::find(Auth::user()->id);
+@endphp
 @extends('vendors.vendor_master')
 @section('main-content')
 <div class="page-wrapper">
     <div class="page-content">
-
+           @if ($vendor->status=='0')
+               <h4 class="text-danger text-center">Your Account Currently Inactive</h4>
+               <p class="text-center text-danger">Please Wait for admin approval.....</p>
+           @endif
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+
+             
                 <div class="col">
                     <div class="card radius-10 bg-gradient-deepblue">
                      <div class="card-body">

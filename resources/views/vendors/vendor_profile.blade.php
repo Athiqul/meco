@@ -65,11 +65,11 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0 text-info"><i class="lni lni-twitter-original"></i> Twitter</h6>
-                                    <span class="text-secondary">{{$vendorInfo->twitter}}</span>
+                                    <span class="text-secondary">{{$vendorInfo->twitter??''}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                     <h6 class="mb-0 text-danger"><i class="lni lni-youtube"></i>Youtube</h6>
-                                    <span class="text-secondary">{{$vendorInfo->youtube}}</span>
+                                    <span class="text-secondary">{{$vendorInfo->youtube??''}}</span>
                                 </li>
                                 
                             </ul>

@@ -40,13 +40,15 @@ class Vendor extends Controller
         'contact_number'=>$request->contact_number,
         'address'=>$request->address,
         'dob'=>$request->dob,
+        'status'=>'0',
+        'roles'=>'vendor'
     ]);
 
     event(new Registered($user));
 
     Auth::login($user);
 
-    return redirect('/login-enterprise');
+    return redirect('/enterprise-login');
    }
     //Vendor Profile
     public function vendorProfile()
