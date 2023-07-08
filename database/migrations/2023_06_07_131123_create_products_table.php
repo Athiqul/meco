@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('short_desc')->nullable();
             $table->text('desc')->nullable();
+            $table->string('product_slug')->nullable();
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('sub_cat_id');
@@ -31,8 +32,10 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('tags')->nullable();
             $table->date('mfg')->nullable();
-            $table->string('type')->nullable();        
-              
+            $table->date('expire')->nullable();
+            $table->string('type')->nullable();
+            $table->enum('status',['0','1'])->default('1');
+
             $table->timestamps();
             //define foreign key
             $table->foreign('brand_id')->references('id')->on('brands');

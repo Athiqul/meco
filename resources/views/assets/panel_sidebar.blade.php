@@ -1,5 +1,5 @@
 <!--sidebar wrapper -->
-        
+
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="menu-title">Dashboard</div>
             </a>
-            
+
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
@@ -32,7 +32,7 @@
                 </li>
                 <li> <a href="{{route('admin.brand.list')}}"><i class="bx bx-right-arrow-alt"></i>Brand List</a>
                 </li>
-               
+
             </ul>
         </li>
         <li class="menu-label">Category Opeations</li>
@@ -47,7 +47,7 @@
                 </li>
                 <li> <a href="{{route('admin.category.list')}}"><i class="bx bx-right-arrow-alt"></i>Category List</a>
                 </li>
-               
+
             </ul>
         </li>
         <li>
@@ -61,7 +61,7 @@
                 </li>
                 <li> <a href="{{route('admin.subcategory.list')}}"><i class="bx bx-right-arrow-alt"></i>Sub Category List</a>
                 </li>
-               
+
             </ul>
         </li>
         <li class="menu-label">Vendor Management</li>
@@ -76,7 +76,22 @@
                 </li>
                 <li> <a href="{{route('admin.inactive.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Inactive Vendors</a>
                 </li>
-               
+
+            </ul>
+        </li>
+        <li class="menu-label">Product Management</li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Products</div>
+            </a>
+            <ul>
+                <li> <a href="{{route('admin.active.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
+                </li>
+                <li> <a href="{{route('admin.inactive.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Products List</a
+                </li>
+
             </ul>
         </li>
     </ul>
