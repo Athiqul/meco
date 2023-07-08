@@ -87,9 +87,9 @@
                 <div class="menu-title">Products</div>
             </a>
             <ul>
-                <li> <a href="{{route('admin.active.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
+                <li> <a href="{{route('admin.product.add')}}"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
                 </li>
-                <li> <a href="{{route('admin.inactive.vendors')}}"><i class="bx bx-right-arrow-alt"></i>Products List</a
+                <li> <a href="{{route('admin.product.list')}}"><i class="bx bx-right-arrow-alt"></i>Products List</a>
                 </li>
 
             </ul>

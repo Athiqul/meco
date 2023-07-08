@@ -10,6 +10,7 @@ use App\Http\Controllers\Module\Brand;
 use App\Http\Controllers\Module\Category;
 use App\Http\Controllers\Module\SubCategoryController;
 use App\Http\Controllers\Module\VendorApprove;
+use App\Http\Controllers\Module\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,6 +103,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::controller(VendorApprove::class)->group(function () {
         route::get('/active-vendors', 'activeVendors')->name('admin.active.vendors');
         route::get('/inactive-vendors', 'inactiveVendors')->name('admin.inactive.vendors');
+        route::get('/vendor-profile/{id}', 'vendorProfile')->name('admin.vendor.profile');
+        route::get('/vendor-approval/{id}', 'vendorApproval')->name('admin.vendor.status');
+
+    });
+
+    //Product
+    Route::controller(Product::class)->group(function () {
+        route::get('/products-list', 'index')->name('admin.product.list');
+
+        route::get('/add-product', 'addProduct')->name('admin.product.add');
         route::get('/vendor-profile/{id}', 'vendorProfile')->name('admin.vendor.profile');
         route::get('/vendor-approval/{id}', 'vendorApproval')->name('admin.vendor.status');
 
