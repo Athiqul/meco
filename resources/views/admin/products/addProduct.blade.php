@@ -1,6 +1,7 @@
 @extends('admin.admin_master')
 @section('need-css')
 <link href="{{asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css')}}" rel="stylesheet">
+<link rel="{{asset('assets/libs/tinymce/skins/ui/oxide/skin.min.css')}}" href="style.css">
 
 @endsection
 @section('main-content')
@@ -56,7 +57,7 @@
 							  </div>
                               <div class="mb-3">
 								<label for="desc" class="form-label">Long Description</label>
-								<textarea id="default" name="desc" aria-hidden="true" style="display: none;"></textarea>
+								<textarea id="elm1"></textarea>
 							  </div>
 							  <div class="mb-3">
 								<label for="inputProductDescription" class="form-label">Product Images</label>
@@ -132,31 +133,28 @@
 @endsection
 @section('need-js')
 <script src="{{asset('assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js')}}"></script>
+<script src="https://cdn.tiny.cloud/1/b69tdpiu66ovx82jjhzsf0eooi7hehgia7avmhbdiy1s6rx4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-<script src="{{asset('assets/tinymce/js/tinymce/tinymce.min.js')}}"></script>
 
 <script>
     $(document).ready(function () {
         $('#image-uploadify').imageuploadify();
     })
-    tinymce.init({
-    selector: 'textarea#default',
-    width: 1000,
-    height: 300,
-    plugins:[
-        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
-        'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-        'table', 'emoticons', 'template', 'codesample'
-    ],
-    toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
-    'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-    'forecolor backcolor emoticons',
-    menu: {
-        favs: {title: 'menu', items: 'code visualaid | searchreplace | emoticons'}
-    },
-    menubar: 'favs file edit view insert format tools table',
-    content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
-});
+	tinymce.init({
+      selector: 'textarea#elm1',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ]
+    });
+
+
 </script>
+
+
 
 @endsection
