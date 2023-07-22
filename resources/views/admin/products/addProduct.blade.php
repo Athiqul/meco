@@ -49,7 +49,11 @@
 							  </div>
 							<div class="mb-3">
 								<label for="title" class="form-label">Product Title</label>
-								<input type="text" name="title" value="{{old('name')}}" class="form-control" id="title" placeholder="Enter product title">
+								<input type="text" name="title" value="{{old('title')}}" class="form-control" id="title" placeholder="Enter product title">
+							  </div>
+							  <div class="mb-3">
+								<label for="product_slug" class="form-label">Product Slug</label>
+								<input type="text" name="product_slug" value="{{old('product_slug')}}" class="form-control" id="product_slug" placeholder="Enter product title">
 							  </div>
 							  <div class="mb-3">
 								<label for="short_desc" class="form-label">Short Description</label>
@@ -57,11 +61,11 @@
 							  </div>
                               <div class="mb-3">
 								<label for="desc" class="form-label">Long Description</label>
-								<textarea id="elm1"></textarea>
+								<textarea id="elm1" name="desc">{{old('desc')}}</textarea>
 							  </div>
 							  <div class="mb-3">
 								<label for="inputProductDescription" class="form-label">Product Images</label>
-								<input id="image-uploadify" type="file" accept="image/*" multiple="" style="display: none;">
+								<input id="image-uploadify" name="product_images" type="file" accept="image/*" multiple="" style="display: none;">
 							  </div>
                             </div>
 						   </div>
@@ -70,19 +74,19 @@
                               <div class="row g-3">
 								<div class="col-md-6">
 									<label for="inputPrice" class="form-label">Price</label>
-									<input type="email" class="form-control" id="inputPrice" placeholder="00.00">
+									<input type="text" name="unit_price" class="form-control" id="inputPrice" placeholder="00.00">
 								  </div>
 								  <div class="col-md-6">
-									<label for="inputCompareatprice" class="form-label">Compare at Price</label>
-									<input type="password" class="form-control" id="inputCompareatprice" placeholder="00.00">
+									<label for="inputCompareatprice" class="form-label">Unit Cost</label>
+									<input type="text" class="form-control" id="inputCompareatprice" placeholder="00.00">
 								  </div>
 								  <div class="col-md-6">
-									<label for="inputCostPerPrice" class="form-label">Cost Per Price</label>
-									<input type="email" class="form-control" id="inputCostPerPrice" placeholder="00.00">
+									<label for="inputCostPerPrice" class="form-label">Color</label>
+									<input type="text" class="form-control" id="inputCostPerPrice">
 								  </div>
 								  <div class="col-md-6">
-									<label for="inputStarPoints" class="form-label">Star Points</label>
-									<input type="password" class="form-control" id="inputStarPoints" placeholder="00.00">
+									<label for="inputStarPoints" class="form-label">Weight</label>
+									<input type="text" class="form-control" id="inputStarPoints" placeholder="00.00">
 								  </div>
 								  <div class="col-12">
 									<label for="inputProductType" class="form-label">Product Type</label>
